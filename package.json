@@ -2,9 +2,10 @@
   "name": "shoppingapp",
   "version": "1.0.0",
   "description": "E-commerce",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\"  && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,9 @@
     "sequelize": "^6.20.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "sequelize-cli": "^6.4.1"
   }
 }
