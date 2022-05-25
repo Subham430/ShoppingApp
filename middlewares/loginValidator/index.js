@@ -5,7 +5,7 @@ const doLoginValidators = [
     .normalizeEmail()
     .isEmail()
     .withMessage("email is required"),
-    check("password")
+  check("password")
     .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,16}$/, "i")
     .withMessage("Password must contains minimum 8 and maximum 16 characters, include one lowercase character, one uppercase character, a number, and a special character."),
 ];
