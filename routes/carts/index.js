@@ -4,7 +4,7 @@ const express = require("express");
 const cartsRouter = express.Router();
 
 // internal imports
-const { addProductValidators, updateProductValidators, productValidationHandler } = require("../../middlewares/productValidator");
+const { addProductValidators, updateProductValidators, productValidationHandler, cartValidationHandler } = require("../../middlewares/cartValidator");
 const { cartController } = require("../../controllers");
 
 // products details page
@@ -14,12 +14,12 @@ cartsRouter.get("/details", cartController.getCartsDetails);
 cartsRouter.get("/details/:id", cartController.getCartDetails);
 
 // products create page
-cartsRouter.post("/create", addProductValidators, productValidationHandler, cartController.createCart);
+cartsRouter.post("/create", addProductValidators, cartValidationHandler, cartController.createCart);
 
 // product update page
-cartsRouter.put("/update/:id", updateProductValidators, productValidationHandler, productController.updateProduct);
+cartsRouter.put("/update/:id", updateProductValidators, cartValidationHandler, cartController.updateCart);
 
 // product delete page
-cartsRouter.put("/delete/:id", productController.removeProduct);
+cartsRouter.put("/delete/:id", cartController.removeCart);
 
 module.exports = cartsRouter;
