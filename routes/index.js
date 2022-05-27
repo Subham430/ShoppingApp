@@ -8,6 +8,8 @@ const productsRouter = require("./products");
 router.use('/auth', authRouter);
 router.use('/user-profile', authenticate, userProfileRouter);
 router.use('/products', authenticate, productsRouter);
+router.use('/carts', authenticate, productsRouter);
+
 
 // const testRouter = require("./test")
 // const {testInfo} = require("../controllers/testController");
