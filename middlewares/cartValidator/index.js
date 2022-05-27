@@ -1,9 +1,6 @@
 // external imports
 const{check, validationResult} = require("express-validator");
 
-//internal imports
-const Cart = require("../../models").cart;
-
 // add Product
 const addCartValidators=[
     check("product_id")
