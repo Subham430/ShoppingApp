@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const { authenticate } = require('../middlewares/auth');
 
-const loginRouter = require("./auth");
-const registerRouter = require("./register/register");
+const authRouter = require("./auth");
+const userProfileRouter = require("./user-profile");
 
-router.use('/auth', loginRouter);
-router.use('/auth', registerRouter);
+router.use('/auth', authRouter);
+router.use('/user-profile', userProfileRouter);
 
 // const testRouter = require("./test")
 // const {testInfo} = require("../controllers/testController");

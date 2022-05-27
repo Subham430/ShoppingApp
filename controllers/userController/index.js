@@ -90,16 +90,15 @@ async function updateUser(request, res, next) {
       });
     }
 
-    if((request.body.password)){
-      const hashedPassword = await bcrypt.hash(request.body.password, 10);
-      request.body.password = hashedPassword;
-    }
+    // if((request.body.password)){
+    //   const hashedPassword = await bcrypt.hash(request.body.password, 10);
+    //   request.body.password = hashedPassword;
+    // }
     
     await User.update({
       name: request.body.name || user_details.name,
       address: request.body.address || user_details.address,
-      description: request.body.description || user_details.description,
-      password: request.body.password || user_details.password
+      email: request.body.email || user_details.email,
     },{ 
       where: { id: request.body.id }
     }).then(function (User) {
@@ -126,6 +125,55 @@ async function updateUser(request, res, next) {
       });
   }
 }
+
+// update user
+async function resetPassword(request, res, next) {
+  try{
+    const user_details = await User.findOne({ 
+      where: {
+        id: request.body.id
+      },     
+    });
+    
+    if(!user_details){
+      response.status(404).json({
+        message: 'no such record found'
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(request.body.password, 10);
+    
+    await User.update({
+      password: hashedPassword,
+
+    },{ 
+      where: { id: request.body.id }
+    }).then(function (User) {
+      if (User) {
+        res.status(201).json({
+            message: "User was updated successfully!",
+            data: User,
+        });
+      } else {
+          response.status(400).json({
+            message: 'Error in updating the record'
+          });
+      }
+    });  
+
+  } catch (err) {
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: "Unknown error occured!",
+            error: err
+          },
+        },
+      });
+  }
+}
+
+
 
 // remove user
 async function removeUser(req, res, next) {
@@ -206,6 +254,7 @@ module.exports = {
   updateUser,
   removeUser,
   restoreUser,
+  resetPassword,
   employee,
   
 };

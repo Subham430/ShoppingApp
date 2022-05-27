@@ -1,10 +1,11 @@
 // external imports
 const express = require("express");
-const loginRouter = express.Router();
+const authRouter = express.Router();
 
 // internal imports
+const { addUserValidators, userValidationHandler } = require("../../middlewares/userValidator/userRegisterValidator");
 const { doLoginValidators, doLoginValidationHandler } = require("../../middlewares/loginValidator");
-const {login} = require("../../controllers/loginController");
+const {loginController, UserController} = require("../../controllers");
 
 /**
  * @swagger
@@ -41,6 +42,10 @@ const {login} = require("../../controllers/loginController");
  */
 
 // login page
-loginRouter.post("/login", doLoginValidators, doLoginValidationHandler, login);
+authRouter.post("/login", doLoginValidators, doLoginValidationHandler, loginController.login);
 
-module.exports = loginRouter;
+// user register
+authRouter.post("/register", addUserValidators, userValidationHandler, UserController.registerUser );
+
+
+module.exports = authRouter;
