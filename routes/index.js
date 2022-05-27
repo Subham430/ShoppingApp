@@ -5,7 +5,7 @@ const authRouter = require("./auth");
 const userProfileRouter = require("./user-profile");
 
 router.use('/auth', authRouter);
-router.use('/user-profile', userProfileRouter);
+router.use('/user-profile', authenticate, userProfileRouter);
 
 // const testRouter = require("./test")
 // const {testInfo} = require("../controllers/testController");
