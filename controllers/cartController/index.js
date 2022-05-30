@@ -1,30 +1,34 @@
 // internal imports
 const Cart = require('../../models').cart;
-const User = require('../../models').user;
+const Product = require('../../models').product;
 
-// get Product details
+
+// get Cart details
 async function getCartDetails(req, res, next) {
   try {
-    const Cart = await Cart.findAll({ 
+    const cart = await Cart.findAll({ 
       where: {
         user_id: req.params.id
-      },    
+      },
+      include:[{
+        model:Product
+      }]    
     });
     
     res.status(200).json({
       message: "Cart details",
-      data: Cart
+      data: cart
     });
-    } catch (err) {
-      res.status(500).json({
-        errors: {
-          common: {
-            msg: "Unknown error occured!",
-            error: err
-          },
+  } catch (err) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Unknown error occured!",
+          error: err
         },
-      });
-    }
+      },
+    });
+  }
 }
 
 // get Carts details
@@ -50,15 +54,15 @@ async function getCartsDetails(req, res, next) {
 // add Product
 async function createCart(req, res, next) {
   try{
-    const user = await User.findOne({ 
+    const product = await Product.findOne({ 
         where: {
-          id: req.params.id
+          id: req.body.product_id
         },    
     });
     
-    if(!user){
+    if(!product){
         response.status(404).json({
-            message: 'no such user present'
+            message: 'no such product present'
         });
     } 
     await Cart.create({
@@ -89,62 +93,13 @@ async function createCart(req, res, next) {
   }
 }
 
-// update Product
-async function updateCart(request, res, next) {
-  try{
-    // const product = await Product.findOne({ 
-    //   where: {
-    //     id: request.body.id
-    //   },     
-    // });
-    
-    // if(!product){
-    //   response.status(404).json({
-    //     message: 'no such record found'
-    //   });
-    // }
 
-    // if((request.body.password)){
-    //   const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    //   request.body.password = hashedPassword;
-    // }
-    
-    await Product.update({
-      name: request.body.name || user_details.name,
-      description: request.body.description || user_details.description,
-      price: request.body.price || user_details.price,
-    },{ 
-      where: { id: request.body.id }
-    }).then(function (Product) {
-      if (Product) {
-        res.status(201).json({
-            message: "Product was updated successfully!",
-            data: Product,
-        });
-      } else {
-          response.status(400).json({
-            message: 'Error in updating the record'
-          });
-      }
-    });  
 
-  } catch (err) {
-      res.status(500).json({
-        errors: {
-          common: {
-            msg: "Unknown error occured!",
-            error: err
-          },
-        },
-      });
-  }
-}
-
-// remove Product
+// remove Cart
 async function removeCart(req, res, next) {
 
   try{
-    await Product.destroy({
+    await Cart.destroy({
       where: {
           id: req.params.id
       }
@@ -171,7 +126,7 @@ async function removeCart(req, res, next) {
   }
 }
 
-// restore Product
+// restore Cart
 async function restoreCart(req, res, next) {
 
   try{
@@ -181,7 +136,7 @@ async function restoreCart(req, res, next) {
       }
     }).then(function (restoreRecord) {
       if(restoreRecord === 1){
-          res.status(200).json({message:"Product restore successfully"});          
+          res.status(200).json({message:"Cart restore successfully"});          
       }
       else
       {
@@ -208,7 +163,6 @@ module.exports = {
   getCartDetails,
   getCartsDetails,
   createCart,
-  updateCart,
   removeCart,
   restoreCart,  
 };

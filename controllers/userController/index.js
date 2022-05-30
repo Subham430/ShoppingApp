@@ -80,7 +80,7 @@ async function updateUser(request, res, next) {
   try{
     const user_details = await User.findOne({ 
       where: {
-        id: request.body.id
+        id: request.params.id
       },     
     });
     
@@ -89,18 +89,13 @@ async function updateUser(request, res, next) {
         message: 'no such record found'
       });
     }
-
-    // if((request.body.password)){
-    //   const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    //   request.body.password = hashedPassword;
-    // }
     
     await User.update({
       name: request.body.name || user_details.name,
       address: request.body.address || user_details.address,
       email: request.body.email || user_details.email,
     },{ 
-      where: { id: request.body.id }
+      where: { id: request.params.id }
     }).then(function (User) {
       if (User) {
         res.status(201).json({
@@ -126,12 +121,12 @@ async function updateUser(request, res, next) {
   }
 }
 
-// update user
+// reset user's password
 async function resetPassword(request, res, next) {
   try{
     const user_details = await User.findOne({ 
       where: {
-        id: request.body.id
+        id: request.params.id
       },     
     });
     
@@ -147,11 +142,11 @@ async function resetPassword(request, res, next) {
       password: hashedPassword,
 
     },{ 
-      where: { id: request.body.id }
+      where: { id: request.params.id }
     }).then(function (User) {
       if (User) {
-        res.status(201).json({
-            message: "User was updated successfully!",
+        res.status(200).json({
+            message: "User's password was updated successfully!",
             data: User,
         });
       } else {
@@ -239,7 +234,6 @@ async function restoreUser(req, res, next) {
 }
 
 //test
-// get users page
 async function employee(req, res, next) {
   res.status(200).json({
     message: "User was added successfully!",

@@ -1,20 +1,23 @@
 // external imports
 const express = require("express");
-const oderRouter = express.Router();
+const odersRouter = express.Router();
 
 // internal imports
-const { addUserValidators, updateUserValidators, resetPasswordValidators, userValidationHandler } = require("../../middlewares/userValidator/userRegisterValidator");
+const { addOrderProductValidators, orderValidationHandler} = require("../../middlewares/oderValidator");
 const { orderController} = require("../../controllers");
 
 
-// user details page
-oderRouter.get("/details/:id", orderController.getOrderDetails);
+// order details page
+odersRouter.get("/details/:id", orderController.getOrderDetails);
+
+// order created 
+odersRouter.post("/create", addOrderProductValidators, orderValidationHandler, orderController.createOrder);
 
 // user update
-oderRouter.put("/update", updateUserValidators, userValidationHandler, orderController.updateUser );
+// odersRouter.put("/update", updateUserValidators, userValidationHandler, orderController.updateUser );
 
 // reset-password page
-oderRouter.put("/reset-password", resetPasswordValidators, userValidationHandler, UserController.resetPassword);
+// odersRouter.put("/reset-password", resetPasswordValidators, userValidationHandler, UserController.resetPassword);
 
 
-module.exports = oderRouter;
+module.exports = odersRouter;

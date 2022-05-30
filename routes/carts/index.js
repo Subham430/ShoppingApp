@@ -14,12 +14,9 @@ cartsRouter.get("/details", cartController.getCartsDetails);
 cartsRouter.get("/details/:id", cartController.getCartDetails);
 
 // products create page
-cartsRouter.post("/create", addCartValidators, cartValidationHandler, cartController.createCart);
-
-// product update page
-cartsRouter.put("/update/:id", updateCartValidators, cartValidationHandler, cartController.updateCart);
+cartsRouter.post("/create/:id", addCartValidators, cartValidationHandler, cartController.createCart);
 
 // product delete page
-cartsRouter.put("/delete/:id", cartController.removeCart);
+cartsRouter.delete("/delete/:id", cartController.removeCart);
 
 module.exports = cartsRouter;

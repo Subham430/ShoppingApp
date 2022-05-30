@@ -25,8 +25,6 @@ const updateProductValidators=[
         .optional()
         .isLength({ min:1})
         .withMessage("Name is required")
-        .isAlpha("en-US",{ignore: " -" })
-        .withMessage("Name must not contain anything other than alphabet")
         .trim(),
     check("description")
         .optional(),

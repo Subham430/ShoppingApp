@@ -73,32 +73,27 @@ async function createProduct(req, res, next) {
 // update Product
 async function updateProduct(request, res, next) {
   try{
-    // const product = await Product.findOne({ 
-    //   where: {
-    //     id: request.body.id
-    //   },     
-    // });
+    const product = await Product.findOne({ 
+      where: {
+        id: request.params.id
+      },     
+    });
     
-    // if(!product){
-    //   response.status(404).json({
-    //     message: 'no such record found'
-    //   });
-    // }
-
-    // if((request.body.password)){
-    //   const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    //   request.body.password = hashedPassword;
-    // }
+    if(!product){
+      response.status(404).json({
+        message: 'no such record found'
+      });
+    }
     
     await Product.update({
-      name: request.body.name || user_details.name,
-      description: request.body.description || user_details.description,
-      price: request.body.price || user_details.price,
+      name: request.body.name || product.name,
+      description: request.body.description || product.description,
+      price: request.body.price || product.price,
     },{ 
-      where: { id: request.body.id }
+      where: { id: request.params.id }
     }).then(function (Product) {
       if (Product) {
-        res.status(201).json({
+        res.status(200).json({
             message: "Product was updated successfully!",
             data: Product,
         });

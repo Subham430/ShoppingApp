@@ -19,6 +19,6 @@ productsRouter.post("/create", addProductValidators, productValidationHandler, p
 productsRouter.put("/update/:id", updateProductValidators, productValidationHandler, productController.updateProduct);
 
 // product delete page
-productsRouter.put("/delete/:id", productController.removeProduct);
+productsRouter.delete("/delete/:id", productController.removeProduct);
 
 module.exports = productsRouter;

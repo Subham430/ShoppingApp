@@ -11,10 +11,12 @@ const { UserController} = require("../../controllers");
 userProfileRouter.get("/details/:id", UserController.getUserDetails);
 
 // user update
-userProfileRouter.put("/update", updateUserValidators, userValidationHandler, UserController.updateUser );
+userProfileRouter.put("/update/:id", updateUserValidators, userValidationHandler, UserController.updateUser );
 
 // reset-password page
-userProfileRouter.put("/reset-password", resetPasswordValidators, userValidationHandler, UserController.resetPassword);
+userProfileRouter.put("/reset-password/:id", resetPasswordValidators, userValidationHandler, UserController.resetPassword);
+
+
 
 
 module.exports = userProfileRouter;

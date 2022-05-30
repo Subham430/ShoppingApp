@@ -1,5 +1,6 @@
 // internal imports
 const Order = require('../../models').order;
+const OrderProduct = require('../../models').order_product;
 
 // get Order details
 async function getOrderDetails(req, res, next) {
@@ -11,7 +12,7 @@ async function getOrderDetails(req, res, next) {
     });
     
     res.status(200).json({
-      message: "Product details",
+      message: "Order details",
       data: order
     });
     } catch (err) {
@@ -31,7 +32,7 @@ async function getOrdersDetails(req, res, next) {
   try {
     const orders = await Order.findAll();
     res.status(200).json({
-      message: "Products details",
+      message: "orders details",
       data: orders,
     });
     } catch (err) {
@@ -42,22 +43,24 @@ async function getOrdersDetails(req, res, next) {
 // add Order
 async function createOrder(req, res, next) {
   try{
-    await Order.create({
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description
-    }).then(function (Product) {
-      if (Order) {
-        res.status(201).json({
-            message: "Product was added successfully!",
-            data: Order,
-        });
-      } else {
-          response.status(400).json({
-            message: 'Error in insert new record'
-          });
-      }
-    });  
+    const order = await Order.create({
+      user_id: req.body.user_id,
+      grand_total: req.body.grand_total,
+      address: req.body.address
+    });
+    for (let i = 0; i < req.body.products.length; i++) {
+      await OrderProduct.create({
+        user_id: req.body.user_id,
+        product_id: req.body.products[i].product_id,
+        quantity: req.body.products[i].quantity,
+        price: req.body.products[i].price
+      });
+    }
+    res.status(200).json({
+      message: "Order created",
+      data: order
+    });
+    
   } catch (err) {
       res.status(500).json({
         errors: {
@@ -133,6 +136,9 @@ async function restoreOrder(req, res, next) {
   }
 }
 
+async function oderStore(req, res){
+
+}
 
 module.exports = {
   getOrderDetails,
