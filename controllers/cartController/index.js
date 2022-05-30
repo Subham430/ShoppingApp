@@ -93,8 +93,6 @@ async function createCart(req, res, next) {
   }
 }
 
-
-
 // remove Cart
 async function removeCart(req, res, next) {
 
@@ -130,7 +128,7 @@ async function removeCart(req, res, next) {
 async function restoreCart(req, res, next) {
 
   try{
-    await Product.restore({
+    await Cart.restore({
       where: {
           id: req.params.id
       }

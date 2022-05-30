@@ -18,5 +18,16 @@ userProfileRouter.put("/reset-password/:id", resetPasswordValidators, userValida
 
 
 
+//extra
+
+// all users details
+userProfileRouter.get("/details", UserController.getUsersDetails);
+
+// delete user
+userProfileRouter.delete("/details/:id", UserController.removeUser);
+
+// restore deleted user
+userProfileRouter.get("/details/:id", UserController.restoreUser);
+
 
 module.exports = userProfileRouter;

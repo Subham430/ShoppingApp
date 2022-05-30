@@ -83,7 +83,7 @@ async function removeOrder(req, res, next) {
       }
     }).then(function (deletedRecord) {
       if(deletedRecord === 1){
-          res.status(200).json({message:"Product Deleted successfully"});          
+          res.status(200).json({message:"Order Deleted successfully"});          
       }
       else
       {
@@ -114,7 +114,7 @@ async function restoreOrder(req, res, next) {
       }
     }).then(function (restoreRecord) {
       if(restoreRecord === 1){
-          res.status(200).json({message:"Product restore successfully"});          
+          res.status(200).json({message:"Order restore successfully"});          
       }
       else
       {
@@ -134,10 +134,6 @@ async function restoreOrder(req, res, next) {
       },
     });
   }
-}
-
-async function oderStore(req, res){
-
 }
 
 module.exports = {

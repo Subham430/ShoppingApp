@@ -168,8 +168,6 @@ async function resetPassword(request, res, next) {
   }
 }
 
-
-
 // remove user
 async function removeUser(req, res, next) {
 

@@ -13,11 +13,16 @@ odersRouter.get("/details/:id", orderController.getOrderDetails);
 // order created 
 odersRouter.post("/create", addOrderProductValidators, orderValidationHandler, orderController.createOrder);
 
-// user update
-// odersRouter.put("/update", updateUserValidators, userValidationHandler, orderController.updateUser );
+// order delete page
+odersRouter.delete("/delete/:id", orderController.removeOrder);
 
-// reset-password page
-// odersRouter.put("/reset-password", resetPasswordValidators, userValidationHandler, UserController.resetPassword);
+
+//extra
+// order restore
+odersRouter.get("/restore/:id", orderController.restoreOrder);
+
+//get all order details page
+odersRouter.get("/details", orderController.getOrdersDetails);
 
 
 module.exports = odersRouter;

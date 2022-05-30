@@ -118,7 +118,6 @@ async function updateProduct(request, res, next) {
 
 // remove Product
 async function removeProduct(req, res, next) {
-
   try{
     await Product.destroy({
       where: {

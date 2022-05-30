@@ -21,4 +21,8 @@ productsRouter.put("/update/:id", updateProductValidators, productValidationHand
 // product delete page
 productsRouter.delete("/delete/:id", productController.removeProduct);
 
+// extra
+//restore product 
+productsRouter.get("/restore/:id", productController.restoreProduct);
+
 module.exports = productsRouter;
