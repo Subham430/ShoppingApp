@@ -6,9 +6,9 @@ const bcrypt = require("bcrypt");
 // get user details
 async function getUserDetails(req, res, next) {
   try {
-    const user_details = await User.findOne({ 
+    const user_details = await User.findAll({ 
       where: {
-        id: req.params.id
+        id: req.user.user.id
       },    
     });
     
@@ -28,7 +28,7 @@ async function getUserDetails(req, res, next) {
     }
 }
 
-// get users details
+// get all users details
 async function getUsersDetails(req, res, next) {
   try {
     const users = await User.findAll();
@@ -64,14 +64,14 @@ async function registerUser(req, res, next) {
       }
     });  
   } catch (err) {
-      res.status(500).json({
-        errors: {
-          common: {
-            msg: "Unknown error occured!",
-            error: err
-          },
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Unknown error occured!",
+          error: err
         },
-      });
+      },
+    });
   }
 }
 
@@ -80,7 +80,7 @@ async function updateUser(request, res, next) {
   try{
     const user_details = await User.findOne({ 
       where: {
-        id: request.params.id
+        id: request.user.user.id
       },     
     });
     
@@ -95,7 +95,7 @@ async function updateUser(request, res, next) {
       address: request.body.address || user_details.address,
       email: request.body.email || user_details.email,
     },{ 
-      where: { id: request.params.id }
+      where: { id: request.user.user.id }
     }).then(function (User) {
       if (User) {
         res.status(201).json({
@@ -126,7 +126,7 @@ async function resetPassword(request, res, next) {
   try{
     const user_details = await User.findOne({ 
       where: {
-        id: request.params.id
+        id: request.user.user.id
       },     
     });
     
@@ -140,9 +140,8 @@ async function resetPassword(request, res, next) {
     
     await User.update({
       password: hashedPassword,
-
     },{ 
-      where: { id: request.params.id }
+      where: { id: request.user.user.id }
     }).then(function (User) {
       if (User) {
         res.status(200).json({
@@ -174,7 +173,7 @@ async function removeUser(req, res, next) {
   try{
     await User.destroy({
       where: {
-          id: req.params.id
+          id: req.user.user.id
       }
     }).then(function (deletedRecord) {
       if(deletedRecord === 1){
@@ -205,7 +204,7 @@ async function restoreUser(req, res, next) {
   try{
     await User.restore({
       where: {
-          id: req.params.id
+          id: req.user.user.id
       }
     }).then(function (restoreRecord) {
       if(restoreRecord === 1){

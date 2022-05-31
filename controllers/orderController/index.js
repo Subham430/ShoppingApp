@@ -7,7 +7,7 @@ async function getOrderDetails(req, res, next) {
   try {
     const order = await Order.findAll({ 
       where: {
-        user_id: req.params.id
+        user_id: req.user.id
       },    
     });
     
@@ -27,7 +27,7 @@ async function getOrderDetails(req, res, next) {
     }
 }
 
-// get Orders details
+// get all Orders details
 async function getOrdersDetails(req, res, next) {
   try {
     const orders = await Order.findAll();
@@ -44,13 +44,13 @@ async function getOrdersDetails(req, res, next) {
 async function createOrder(req, res, next) {
   try{
     const order = await Order.create({
-      user_id: req.body.user_id,
+      user_id: req.user.id,
       grand_total: req.body.grand_total,
       address: req.body.address
     });
     for (let i = 0; i < req.body.products.length; i++) {
       await OrderProduct.create({
-        user_id: req.body.user_id,
+        user_id: req.user.id,
         product_id: req.body.products[i].product_id,
         quantity: req.body.products[i].quantity,
         price: req.body.products[i].price

@@ -7,14 +7,11 @@ const cartsRouter = express.Router();
 const { addCartValidators, updateCartValidators, cartValidationHandler } = require("../../middlewares/cartValidator");
 const { cartController } = require("../../controllers");
 
-// Carts details page
-cartsRouter.get("/details", cartController.getCartsDetails);
-
 // Cart details page
-cartsRouter.get("/details/:id", cartController.getCartDetails);
+cartsRouter.get("/details", cartController.getCartDetails);
 
 // Cart create page
-cartsRouter.post("/create/:id", addCartValidators, cartValidationHandler, cartController.createCart);
+cartsRouter.post("/create", addCartValidators, cartValidationHandler, cartController.createCart);
 
 // Cart delete page
 cartsRouter.delete("/delete/:id", cartController.removeCart);
@@ -22,5 +19,8 @@ cartsRouter.delete("/delete/:id", cartController.removeCart);
 //extra 
 // Cart restore
 cartsRouter.get("/restore/:id", cartController.restoreCart);
+
+// Carts details page
+cartsRouter.get("/all/details", cartController.getCartsDetails);
 
 module.exports = cartsRouter;

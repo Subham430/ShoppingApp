@@ -2,13 +2,12 @@
 const Cart = require('../../models').cart;
 const Product = require('../../models').product;
 
-
 // get Cart details
 async function getCartDetails(req, res, next) {
   try {
     const cart = await Cart.findAll({ 
       where: {
-        user_id: req.params.id
+        user_id: req.user.user.id
       },
       include:[{
         model:Product
@@ -67,8 +66,8 @@ async function createCart(req, res, next) {
     } 
     await Cart.create({
       product_id: req.body.product_id,
-      user_id: req.params.id,
-      quantity: req.body.quantity	
+      user_id: req.user.user.id,
+      quantity: req.body.quantity
     }).then(function (Cart) {
       if (Cart) {
         res.status(201).json({
