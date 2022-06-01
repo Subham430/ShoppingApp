@@ -15,7 +15,7 @@ const {loginController, UserController} = require("../../controllers");
 
 /**
  * @swagger
- * /swastik/auth/login:
+ * /shopping/auth/login:
  *   post:
  *     tags: [Login]
  *     summary: Login
@@ -28,7 +28,7 @@ const {loginController, UserController} = require("../../controllers");
  *             properties:
  *               email:
  *                 type: string
- *                 example: "heritage@gmail.com"
+ *                 example: "subham@gmail.com"
  *               password:
  *                 type: string
  *                 example: "Password@430"
@@ -44,6 +44,49 @@ const {loginController, UserController} = require("../../controllers");
 // login page
 authRouter.post("/login", doLoginValidators, doLoginValidationHandler, loginController.login);
 
+
+/**
+ * @swagger
+ *   tags:
+ *     name: Register
+*/
+
+/**
+ * @swagger
+ * /shopping/auth/register:
+ *   post:
+ *     tags: [Register]
+ *     summary: Register User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "heritage@gmail.com"
+ *               password:
+ *                 type: string
+ *                 example: "Password@430"
+ *               name:
+ *                 type: string
+ *                 example: "heritage@gmail.com"
+ *               description:
+ *                 type: string
+ *                 example: "ertyu"
+ *               address:
+ *                 type: string
+ *                 example: "purulia"
+ *     responses:
+ *       200:
+ *         description: Get user & access token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
 // user register
 authRouter.post("/register", addUserValidators, userValidationHandler, UserController.registerUser );
 

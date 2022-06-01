@@ -38,14 +38,14 @@ const addUserValidators=[
         .optional()
         .isLength({ min:1})
         .withMessage("Address is required")
-        .isAlpha("en-US")
+        .isAlpha("en-US",{ignore: " -" })
         .withMessage("Address must not contain anything other than alphabet")
         .trim(),
     check("description")
         .optional()
         .isLength({ min:1})
         .withMessage("Description is required")
-        .isAlpha("en-US")
+        .isAlpha("en-US",{ignore: " -" })
         .withMessage("Description must not contain anything other than alphabet")
         .trim()
         
@@ -82,7 +82,7 @@ const updateUserValidators=[
         .optional()
         .isLength({ min:1})
         .withMessage("Address is required")
-        .isAlpha("en-US")
+        .isAlpha("en-US",{ignore: " -" })
         .withMessage("Address must not contain anything other than alphabet")
         .trim(),        
 ];

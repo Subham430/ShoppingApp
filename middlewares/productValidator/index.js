@@ -17,6 +17,9 @@ const addProductValidators=[
         .optional(),
     check("description")
         .optional()
+        .isLength({ min:1})
+        .withMessage("Description must not emplty")
+        .trim()
         
 ];
 
@@ -27,7 +30,10 @@ const updateProductValidators=[
         .withMessage("Name is required")
         .trim(),
     check("description")
-        .optional(),
+        .optional()
+        .isAlpha("en-US",{ignore: " -" })
+        .withMessage("Description must not contain anything other than alphabet")
+        .trim(),
     check("price")
         .optional(),          
 ];

@@ -7,11 +7,6 @@ const addCartValidators=[
         .isLength({ min:1})
         .withMessage("product_id is required")
         .trim(),
-    check("user_id")
-        .optional()
-        .isLength({ min:1})
-        .withMessage("user_id is required")
-        .trim(),
     check("quantity")
         .optional().isLength({ min:1})
         .withMessage("quantity is required")

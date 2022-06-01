@@ -7,7 +7,7 @@ async function getOrderDetails(req, res, next) {
   try {
     const order = await Order.findAll({ 
       where: {
-        user_id: req.user.id
+        user_id: req.user.user.id
       },    
     });
     
@@ -44,7 +44,7 @@ async function getOrdersDetails(req, res, next) {
 async function createOrder(req, res, next) {
   try{
     const order = await Order.create({
-      user_id: req.user.id,
+      user_id: req.user.user.id,
       grand_total: req.body.grand_total,
       address: req.body.address
     });

@@ -102,7 +102,7 @@ async function removeCart(req, res, next) {
       }
     }).then(function (deletedRecord) {
       if(deletedRecord === 1){
-          res.status(200).json({message:"Product Deleted successfully"});          
+          res.status(200).json({message:"Cart Deleted successfully"});          
       }
       else
       {
